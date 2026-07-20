@@ -9,12 +9,19 @@ interface AboutPageProps {
 }
 
 export default function AboutPage(props: AboutPageProps) {
+  // Ensure header and footer are always provided as safe fallbacks
+  const safeProps = {
+    ...props,
+    header: props.header ?? {},
+    footer: props.footer ?? {},
+  };
+
   switch (props.data?.variant) {
     case "timber":
-      return <TimberAboutPage {...props} />;
+      return <TimberAboutPage {...safeProps} />;
 
     case "rk":
     default:
-      return <RkAboutPage {...props} />;
+      return <RkAboutPage {...safeProps} />;
   }
 }
