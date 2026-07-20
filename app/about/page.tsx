@@ -1,3 +1,4 @@
+// app/about/page.tsx
 import Header from "@/components/sections/Header/Header";
 import Footer from "@/components/sections/Footer/Footer";
 import AboutPage from "@/components/pages/About/RkAboutPage";
@@ -21,7 +22,12 @@ export default async function Page({ searchParams }: PageProps) {
       <Header data={headerData} theme={theme} />
       
       <main className="flex-grow">
-        <AboutPage data={aboutData} theme={theme} />
+        <AboutPage 
+          data={aboutData} 
+          theme={theme} 
+          header={headerData} 
+          footer={footerData} 
+        />
       </main>
 
       <Footer data={footerData} theme={theme} />
