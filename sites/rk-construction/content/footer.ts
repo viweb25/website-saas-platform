@@ -8,11 +8,11 @@ const footer = {
     "RK Construction delivers residential, commercial and industrial engineering projects with innovation, quality and safety.",
 
   quickLinks: [
-    { label: "Home", href: "#" },
-    { label: "About", href: "#" },
-    { label: "Services", href: "#" },
-    { label: "Projects", href: "#" },
-    { label: "Contact", href: "#" },
+    { label: "Home", href: "/" },
+    { label: "About", href: "/about" },
+    { label: "Services", href: "/services" },
+    { label: "Projects", href: "/projects" },
+    { label: "Contact", href: "/contact" },
   ],
 
   services: [
@@ -30,9 +30,9 @@ const footer = {
   },
 
   social: [
-    { name: "Facebook", href: "#" },
-    { name: "Instagram", href: "#" },
-    { name: "LinkedIn", href: "#" },
+    { name: "Facebook", href: "https://facebook.com" },
+    { name: "Instagram", href: "https://instagram.com" },
+    { name: "LinkedIn", href: "https://linkedin.com" },
   ],
 
   copyright:
