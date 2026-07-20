@@ -17,7 +17,7 @@ export default function AboutPage({
 }: Props) {
   return (
     <>
-      <Header data={header} theme={theme} />
+      
 
       <main>
 
@@ -51,7 +51,7 @@ export default function AboutPage({
 
       </main>
 
-      <Footer data={footer} theme={theme} />
+     
     </>
   );
 }
