@@ -1,3 +1,4 @@
+// components/pages/Contact/ContactPage.tsx
 import RkContactPage from "./RkContactPage";
 import TimberContactPage from "./TimberContactPage";
 
@@ -9,7 +10,10 @@ interface ContactPageProps {
 }
 
 export default function ContactPage(props: ContactPageProps) {
-  switch (props.data.variant) {
+  // Safe extraction with default fallback to "rk"
+  const variant = props?.data?.variant ?? "rk";
+
+  switch (variant) {
     case "timber":
       return <TimberContactPage {...props} />;
 
