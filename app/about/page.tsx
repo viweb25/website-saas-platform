@@ -1,12 +1,13 @@
 import { loadSite } from "@/lib/site-loader";
 import AboutPage from "@/components/pages/About/AboutPage";
 
-export default function Page({
+export default async function Page({
   searchParams,
 }: {
-  searchParams?: { site?: string };
+  searchParams: Promise<{ site?: string }>;
 }) {
-  const site = loadSite(searchParams?.site);
+  const params = await searchParams;
+  const site = loadSite(params?.site);
 
   return (
     <AboutPage
