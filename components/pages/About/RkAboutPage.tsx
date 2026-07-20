@@ -17,7 +17,7 @@ export default function AboutPage({
 }: Props) {
   return (
     <>
-      
+    
 
       <main>
 
@@ -51,7 +51,7 @@ export default function AboutPage({
 
       </main>
 
-     
+   
     </>
   );
 }
