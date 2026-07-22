@@ -2,8 +2,6 @@
 
 import React, { useState } from "react";
 import Link from "next/link";
-import Header from "@/components/sections/Header/Header";
-import Footer from "@/components/sections/Footer/Footer";
 
 type ServicesPageProps = {
   header?: any;
@@ -13,7 +11,7 @@ type ServicesPageProps = {
 };
 
 function ServiceIcon({ type, color }: { type: string; color: string }) {
-  const icons: Record<string, JSX.Element> = {
+  const icons: Record<string, React.ReactNode> = {
     process: (
       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="1.8" d="M19.428 15.428a2 2 0 00-1.022-.547l-2.387-.477a6 6 0 00-3.86.517l-.318.158a6 6 0 01-3.86.517L5.6 15.12a2 2 0 01-1.022-.547l-2.387-.477A2 2 0 011 12.158V6.842a2 2 0 011.191-1.838l2.387-.477a2 2 0 001.022-.547l.318-.158a6 6 0 013.86-.517l2.387.477a6 6 0 003.86-.517l.318-.158A2 2 0 0118.4 3.12l2.387.477A2 2 0 0122 5.435v5.316a2 2 0 01-1.191 1.838l-1.381.276" />
     ),
@@ -51,8 +49,6 @@ export default function ServicesPage({ header, footer, theme, data }: ServicesPa
 
   const primaryColor = theme?.primary || theme?.primaryColor || "#ffb703";
 
-  // Forced contrast configuration:
-  // Set heroBgColor to "#ffffff" if your hero section should have a light background instead
   const heroBgColor = theme?.background || "#0f172a";
   const heroTextColor = heroBgColor === "#ffffff" || heroBgColor === "white" ? "#0f172a" : "#ffffff";
   const heroSubtitleColor = heroBgColor === "#ffffff" || heroBgColor === "white" ? "#334155" : "#cbd5e1";
@@ -108,8 +104,6 @@ export default function ServicesPage({ header, footer, theme, data }: ServicesPa
 
   return (
     <div className="w-full bg-slate-50 min-h-screen flex flex-col justify-between antialiased">
-    
-
       <main className="pt-20 flex-grow">
         
         {/* HERO BANNER SECTION */}
@@ -127,7 +121,6 @@ export default function ServicesPage({ header, footer, theme, data }: ServicesPa
               </span>
             )}
 
-            {/* HERO TITLE - DYNAMIC CONTRAST COLOR */}
             <h1
               className="text-3xl sm:text-5xl lg:text-6xl font-black max-w-4xl mx-auto leading-tight mb-6 tracking-tight uppercase"
               style={{ color: heroTextColor }}
@@ -135,7 +128,6 @@ export default function ServicesPage({ header, footer, theme, data }: ServicesPa
               {heroTitle}
             </h1>
 
-            {/* HERO SUBTITLE */}
             {heroSubtitle && (
               <p
                 className="text-base sm:text-lg max-w-2xl mx-auto leading-relaxed font-medium"
@@ -148,14 +140,14 @@ export default function ServicesPage({ header, footer, theme, data }: ServicesPa
         </section>
 
         {/* METRICS BANNER */}
-        <section className="bg-white border-b border-slate-200 py-8 shadow-sm" style={{ backgroundColor: "#ffffff" }}>
+        <section className="bg-white border-b border-slate-200 py-8 shadow-sm">
           <div className="w-[90%] max-w-7xl mx-auto grid grid-cols-2 md:grid-cols-4 gap-6 text-center">
             {statsData.map((stat: any, idx: number) => (
               <div key={idx} className="border-r last:border-r-0 border-slate-200 pr-2">
                 <span className="block text-2xl sm:text-4xl font-black" style={{ color: primaryColor }}>
                   {stat.number}
                 </span>
-                <span className="text-[11px] sm:text-xs font-bold uppercase tracking-wider" style={{ color: "#0f172a" }}>
+                <span className="text-[11px] sm:text-xs font-bold uppercase tracking-wider text-slate-900">
                   {stat.label}
                 </span>
               </div>
@@ -167,7 +159,6 @@ export default function ServicesPage({ header, footer, theme, data }: ServicesPa
         <section className="py-16 sm:py-24 bg-slate-50">
           <div className="w-[90%] max-w-7xl mx-auto">
             
-            {/* Filter Tabs */}
             {categories.length > 1 && (
               <div className="flex flex-wrap items-center justify-center gap-2 mb-12">
                 {categories.map((cat: any) => (
@@ -190,53 +181,40 @@ export default function ServicesPage({ header, footer, theme, data }: ServicesPa
               </div>
             )}
 
-            {/* Grid display */}
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
               {filteredServices.map((service: any, index: number) => (
                 <div
                   key={service.id || index}
                   className="bg-white rounded-2xl p-8 border border-slate-200 shadow-sm hover:shadow-xl transition-all duration-300 flex flex-col justify-between"
-                  style={{ backgroundColor: "#ffffff" }}
                 >
                   <div>
                     <div className="flex items-center justify-between mb-6">
                       <ServiceIcon type={service.type} color={primaryColor} />
-                      <span className="text-xs font-black tracking-wider" style={{ color: "#64748b" }}>
+                      <span className="text-xs font-black tracking-wider text-slate-500">
                         #{service.id}
                       </span>
                     </div>
 
-                    {/* CARD TITLE - DARK SLATE FOR WHITE BG */}
-                    <h3
-                      className="text-xl font-black mb-3 tracking-tight"
-                      style={{ color: "#0f172a" }}
-                    >
+                    <h3 className="text-xl font-black mb-3 tracking-tight text-slate-900">
                       {service.title}
                     </h3>
                     
-                    {/* CARD DESCRIPTION */}
                     {service.description && (
-                      <p
-                        className="text-xs sm:text-sm leading-relaxed mb-6 font-medium"
-                        style={{ color: "#334155" }}
-                      >
+                      <p className="text-xs sm:text-sm leading-relaxed mb-6 font-medium text-slate-600">
                         {service.description}
                       </p>
                     )}
                   </div>
 
                   <div className="pt-4 border-t border-slate-200 flex items-center justify-between">
-                    <span
-                      className="text-[10px] font-bold uppercase tracking-wider px-2.5 py-1 rounded"
-                      style={{ backgroundColor: "#f1f5f9", color: "#334155" }}
-                    >
+                    <span className="text-[10px] font-bold uppercase tracking-wider px-2.5 py-1 rounded bg-slate-100 text-slate-700">
                       {service.category}
                     </span>
                     <Link
                       href={service.href}
                       className="text-xs font-bold uppercase tracking-wider flex items-center gap-1.5 transition-all"
                     >
-                      <span className="font-extrabold" style={{ color: "#0f172a" }}>
+                      <span className="font-extrabold text-slate-900">
                         {service.button}
                       </span>
                       <span className="font-extrabold" style={{ color: primaryColor }}>&rarr;</span>
@@ -250,13 +228,13 @@ export default function ServicesPage({ header, footer, theme, data }: ServicesPa
         </section>
 
         {/* WORKFLOW PROCESS TIMELINE */}
-        <section className="py-20 bg-slate-900 border-t border-slate-800" style={{ backgroundColor: "#0f172a" }}>
+        <section className="py-20 bg-slate-900 border-t border-slate-800">
           <div className="w-[90%] max-w-7xl mx-auto">
             <div className="text-center max-w-2xl mx-auto mb-16">
-              <span className="text-xs font-bold uppercase tracking-widest block mb-2" style={{ color: "#94a3b8" }}>
+              <span className="text-xs font-bold uppercase tracking-widest block mb-2 text-slate-400">
                 WORKFLOW EXCELLENCE
               </span>
-              <h2 className="text-3xl sm:text-4xl font-black uppercase tracking-tight" style={{ color: "#ffffff" }}>
+              <h2 className="text-3xl sm:text-4xl font-black uppercase tracking-tight text-white">
                 HOW WE EXECUTE OUR PROJECTS
               </h2>
             </div>
@@ -270,8 +248,8 @@ export default function ServicesPage({ header, footer, theme, data }: ServicesPa
                   >
                     STEP {item.step || `0${idx + 1}`}
                   </span>
-                  <h4 className="text-lg font-bold mb-2" style={{ color: "#ffffff" }}>{item.title}</h4>
-                  <p className="text-xs leading-relaxed font-medium" style={{ color: "#cbd5e1" }}>
+                  <h4 className="text-lg font-bold mb-2 text-white">{item.title}</h4>
+                  <p className="text-xs leading-relaxed font-medium text-slate-300">
                     {item.desc || item.description}
                   </p>
                 </div>
@@ -281,12 +259,12 @@ export default function ServicesPage({ header, footer, theme, data }: ServicesPa
         </section>
 
         {/* CALL TO ACTION */}
-        <section className="py-16 text-center bg-white border-t border-slate-200" style={{ backgroundColor: "#ffffff" }}>
+        <section className="py-16 text-center bg-white border-t border-slate-200">
           <div className="w-[90%] max-w-3xl mx-auto space-y-6">
-            <h2 className="text-2xl sm:text-4xl font-black uppercase" style={{ color: "#0f172a" }}>
+            <h2 className="text-2xl sm:text-4xl font-black uppercase text-slate-900">
               READY TO LAUNCH YOUR NEXT ENGINEERING PROJECT?
             </h2>
-            <p className="text-sm sm:text-base font-medium" style={{ color: "#334155" }}>
+            <p className="text-sm sm:text-base font-medium text-slate-600">
               Consult with our engineering team today for project assessments and quotes.
             </p>
             <div>
@@ -302,8 +280,6 @@ export default function ServicesPage({ header, footer, theme, data }: ServicesPa
         </section>
 
       </main>
-
-  
     </div>
   );
 }
