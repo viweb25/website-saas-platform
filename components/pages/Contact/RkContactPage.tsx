@@ -9,11 +9,6 @@ interface ContactPageProps {
   footer?: any;
   theme?: any;
   data?: {
-    hero?: {
-      badge?: string;
-      title?: string;
-      subtitle?: string;
-    };
     contact?: {
       phone?: string;
       email?: string;
@@ -24,250 +19,184 @@ interface ContactPageProps {
       title?: string;
       button?: string;
     };
-    map?: {
-      embedUrl?: string;
-    };
-    socials?: Array<{
-      name: string;
-      url: string;
-    }>;
   };
 }
 
 export default function RkContactPage({ header, footer, data, theme }: ContactPageProps) {
-  const [formState, setFormState] = useState({ name: "", email: "", phone: "", message: "" });
+  const [formState, setFormState] = useState({ name: "", email: "", message: "" });
   const [status, setStatus] = useState<"idle" | "sending" | "success" | "error">("idle");
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setStatus("sending");
-    
+
     try {
-      await new Promise((resolve) => setTimeout(resolve, 1000));
+      await new Promise((resolve) => setTimeout(resolve, 800));
       setStatus("success");
-      setFormState({ name: "", email: "", phone: "", message: "" });
-    } catch (err) {
+      setFormState({ name: "", email: "", message: "" });
+    } catch {
       setStatus("error");
     }
   };
 
-  const accentColor = theme?.primary || theme?.primaryColor || "#0f172a"; 
-  const badgeTextColor = theme?.primary || theme?.primaryColor || "#2563eb";
-  const badgeBgColor = (theme?.primary || theme?.primaryColor) ? `${theme?.primary || theme?.primaryColor}10` : "#eff6ff";
+  const primaryColor = theme?.primary || theme?.primaryColor || "#2563eb";
+
+  const contactItems = [
+    {
+      label: "Call Us",
+      value: data?.contact?.phone || "+1 (555) 019-2834",
+      href: `tel:${data?.contact?.phone || "+15550192834"}`,
+      icon: (
+        <path strokeLinecap="round" strokeLinejoin="round" d="M2.25 6.6221a2.25 2.25 0 0 1 1.636-2.09l4.585-1.146a2.25 2.25 0 0 1 2.347 1.3l1.246 3.116a2.25 2.25 0 0 1-.582 2.442l-2.033 1.625a15.194 15.194 0 0 0 6.574 6.574l1.625-2.033a2.25 2.25 0 0 1 2.442-.582l3.116 1.246a2.25 2.25 0 0 1 1.3 2.347l-1.146 4.585a2.25 2.25 0 0 1-2.09 1.636h-1.622c-7.854 0-14.25-6.396-14.25-14.25V6.6221Z" />
+      ),
+    },
+    {
+      label: "Email Us",
+      value: data?.contact?.email || "contact@rkconstruction.com",
+      href: `mailto:${data?.contact?.email || "contact@rkconstruction.com"}`,
+      icon: (
+        <path strokeLinecap="round" strokeLinejoin="round" d="M21.75 6.75v10.5a2.25 2.25 0 0 1-2.25 2.25h-15a2.25 2.25 0 0 1-2.25 2.25V6.75m19.5 0A2.25 2.25 0 0 0 19.5 4.5h-15a2.25 2.25 0 0 0-2.25 2.25m19.5 0v.243a2.25 2.25 0 0 1-1.07 1.916l-7.5 4.615a2.25 2.25 0 0 1-2.36 0L3.32 8.91a2.25 2.25 0 0 1-1.07-1.92V6.75" />
+      ),
+    },
+    {
+      label: "Visit Us",
+      value: data?.contact?.address || "123 Business Avenue, Suite 400, NY",
+      href: null,
+      icon: (
+        <>
+          <path strokeLinecap="round" strokeLinejoin="round" d="M15 10.5a3 3 0 1 1-6 0 3 3 0 0 1 6 0Z" />
+          <path strokeLinecap="round" strokeLinejoin="round" d="M19.5 10.5c0 7.142-7.5 11.25-7.5 11.25S4.5 17.642 4.5 10.5a7.5 7.5 0 1 1 15 0Z" />
+        </>
+      ),
+    },
+    {
+      label: "Hours",
+      value: data?.contact?.officeHours || "Mon - Fri: 8:00 AM - 6:00 PM",
+      href: null,
+      icon: (
+        <path strokeLinecap="round" strokeLinejoin="round" d="M12 6v6h4.5m4.5 0a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" />
+      ),
+    },
+  ];
 
   return (
-    <div className="w-full bg-slate-50/50 min-h-screen text-slate-800 antialiased selection:bg-blue-100 flex flex-col justify-between">
-      
-      {/* 1. RENDER HEADER HERE */}
+    <div className="w-full bg-slate-50 min-h-screen text-slate-800 antialiased flex flex-col justify-between">
       <Header data={header} theme={theme} />
 
-      {/* Main Content Area */}
-      <main className="pt-20 flex-grow">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 md:py-20 lg:py-24">
+      <main className="pt-24 pb-16 flex-grow flex items-center justify-center">
+        <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 w-full">
           
-          {/* Header Hero Section */}
-          <div className="text-center max-w-3xl mx-auto mb-12 md:mb-20">
-            {data?.hero?.badge && (
-              <span 
-                className="inline-flex items-center px-3.5 py-1.5 rounded-full text-xs font-semibold tracking-wide uppercase mb-4 transition-all duration-300"
-                style={{ color: badgeTextColor, backgroundColor: badgeBgColor }}
-              >
-                {data.hero.badge}
-              </span>
-            )}
-            <h1 className="text-3xl sm:text-4xl md:text-5xl font-extrabold text-slate-900 tracking-tight leading-tight mb-4 md:mb-6">
-              {data?.hero?.title || "Let's Build Something Great Together"}
+          {/* Simple Clean Header */}
+          <div className="text-center max-w-xl mx-auto mb-10">
+            <h1 className="text-3xl sm:text-4xl font-black text-slate-900 tracking-tight mb-2">
+              Get in Touch
             </h1>
-            <p className="text-base sm:text-lg text-slate-600 font-medium leading-relaxed max-w-2xl mx-auto">
-              {data?.hero?.subtitle}
+            <p className="text-sm text-slate-500 font-medium">
+              Have a question or requirement? Drop us a message below.
             </p>
           </div>
 
-          {/* Master Responsive Grid split */}
-          <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-start">
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
             
-            {/* Left Panel: Info Cards Container */}
-            <div className="lg:col-span-5 space-y-6">
-              <div className="bg-white rounded-2xl border border-slate-100 p-6 sm:p-8 shadow-[0_4px_20px_-4px_rgba(15,23,42,0.05)]">
-                <h2 className="text-xl font-bold text-slate-900 mb-2">Connect Directly</h2>
-                <p className="text-sm text-slate-500 mb-8 font-medium">
-                  Reach our headquarters through our direct contact options or working hours.
-                </p>
-
-                <div className="space-y-6">
-                  {data?.contact?.phone && (
-                    <div className="flex items-start gap-4 p-3 rounded-xl hover:bg-slate-50 transition-colors duration-200">
-                      <div className="p-3 rounded-xl bg-slate-50 border border-slate-100 text-slate-700 shadow-sm mt-0.5">
-                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={2} stroke="currentColor" className="w-5 h-5">
-                          <path strokeLinecap="round" strokeLinejoin="round" d="M2.25 6.6221a2.25 2.25 0 0 1 1.636-2.09l4.585-1.146a2.25 2.25 0 0 1 2.347 1.3l1.246 3.116a2.25 2.25 0 0 1-.582 2.442l-2.033 1.625a15.194 15.194 0 0 0 6.574 6.574l1.625-2.033a2.25 2.25 0 0 1 2.442-.582l3.116 1.246a2.25 2.25 0 0 1 1.3 2.347l-1.146 4.585a2.25 2.25 0 0 1-2.09 1.636h-1.622c-7.854 0-14.25-6.396-14.25-14.25V6.6221Z" />
-                        </svg>
-                      </div>
-                      <div>
-                        <span className="block text-xs font-bold text-slate-400 uppercase tracking-wider mb-0.5">Phone Call</span>
-                        <a href={`tel:${data.contact.phone}`} className="font-semibold text-base text-slate-900 hover:text-blue-600 transition-colors">{data.contact.phone}</a>
-                      </div>
-                    </div>
-                  )}
-
-                  {data?.contact?.email && (
-                    <div className="flex items-start gap-4 p-3 rounded-xl hover:bg-slate-50 transition-colors duration-200">
-                      <div className="p-3 rounded-xl bg-slate-50 border border-slate-100 text-slate-700 shadow-sm mt-0.5">
-                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={2} stroke="currentColor" className="w-5 h-5">
-                          <path strokeLinecap="round" strokeLinejoin="round" d="M21.75 6.75v10.5a2.25 2.25 0 0 1-2.25 2.25h-15a2.25 2.25 0 0 1-2.25 2.25V6.75m19.5 0A2.25 2.25 0 0 0 19.5 4.5h-15a2.25 2.25 0 0 0-2.25 2.25m19.5 0v.243a2.25 2.25 0 0 1-1.07 1.916l-7.5 4.615a2.25 2.25 0 0 1-2.36 0L3.32 8.91a2.25 2.25 0 0 1-1.07-1.92V6.75" />
-                        </svg>
-                      </div>
-                      <div>
-                        <span className="block text-xs font-bold text-slate-400 uppercase tracking-wider mb-0.5">Email Address</span>
-                        <a href={`mailto:${data.contact.email}`} className="font-semibold text-base text-slate-900 hover:text-blue-600 transition-colors break-all">{data.contact.email}</a>
-                      </div>
-                    </div>
-                  )}
-
-                  {data?.contact?.address && (
-                    <div className="flex items-start gap-4 p-3 rounded-xl hover:bg-slate-50 transition-colors duration-200">
-                      <div className="p-3 rounded-xl bg-slate-50 border border-slate-100 text-slate-700 shadow-sm mt-0.5">
-                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={2} stroke="currentColor" className="w-5 h-5">
-                          <path strokeLinecap="round" strokeLinejoin="round" d="M15 10.5a3 3 0 1 1-6 0 3 3 0 0 1 6 0Z" />
-                          <path strokeLinecap="round" strokeLinejoin="round" d="M19.5 10.5c0 7.142-7.5 11.25-7.5 11.25S4.5 17.642 4.5 10.5a7.5 7.5 0 1 1 15 0Z" />
-                        </svg>
-                      </div>
-                      <div>
-                        <span className="block text-xs font-bold text-slate-400 uppercase tracking-wider mb-0.5">Main Office</span>
-                        <p className="font-semibold text-slate-800 text-sm sm:text-base mt-0.5 leading-relaxed">{data.contact.address}</p>
-                      </div>
-                    </div>
-                  )}
-
-                  {data?.contact?.officeHours && (
-                    <div className="flex items-start gap-4 p-3 rounded-xl hover:bg-slate-50 transition-colors duration-200">
-                      <div className="p-3 rounded-xl bg-slate-50 border border-slate-100 text-slate-700 shadow-sm mt-0.5">
-                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={2} stroke="currentColor" className="w-5 h-5">
-                          <path strokeLinecap="round" strokeLinejoin="round" d="M12 6v6h4.5m4.5 0a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" />
-                        </svg>
-                      </div>
-                      <div>
-                        <span className="block text-xs font-bold text-slate-400 uppercase tracking-wider mb-0.5">Working Hours</span>
-                        <p className="font-semibold text-slate-800 text-sm sm:text-base mt-0.5">{data.contact.officeHours}</p>
-                      </div>
-                    </div>
-                  )}
-                </div>
-
-                {/* Social Link Chips */}
-                {data?.socials && data.socials.length > 0 && (
-                  <div className="pt-6 border-t border-slate-100 mt-6">
-                    <span className="block text-xs font-bold text-slate-400 uppercase tracking-wider mb-3">Channels</span>
-                    <div className="flex flex-wrap gap-2">
-                      {data.socials.map((social, idx) => (
-                        <a
-                          key={idx}
-                          href={social.url}
-                          className="px-4 py-2 bg-slate-50 border border-slate-200 rounded-xl text-xs font-semibold text-slate-700 hover:bg-slate-900 hover:text-white hover:border-slate-900 transition-all duration-200 active:scale-95 shadow-sm"
-                        >
-                          {social.name}
-                        </a>
-                      ))}
-                    </div>
+            {/* Quick Contact Cards */}
+            <div className="lg:col-span-5 grid grid-cols-1 gap-3">
+              {contactItems.map((item, idx) => (
+                <div
+                  key={idx}
+                  className="p-4 rounded-2xl bg-white border border-slate-200/80 shadow-sm flex items-center gap-4 transition-transform duration-200 hover:-translate-y-0.5"
+                >
+                  <div
+                    className="p-3 rounded-xl text-white flex-shrink-0"
+                    style={{ backgroundColor: primaryColor }}
+                  >
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={2} stroke="currentColor" className="w-5 h-5">
+                      {item.icon}
+                    </svg>
                   </div>
-                )}
-              </div>
-
-              {/* Map Embed Frame */}
-              {data?.map?.embedUrl && !data.map.embedUrl.includes("YOUR_MAP_URL") && (
-                <div className="w-full h-52 sm:h-60 bg-white border border-slate-100 rounded-2xl overflow-hidden p-2 shadow-[0_4px_20px_-4px_rgba(15,23,42,0.05)]">
-                  <iframe
-                    title="Office Map Location Reference"
-                    src={data.map.embedUrl}
-                    className="w-full h-full border-0 rounded-xl grayscale opacity-90 hover:grayscale-0 transition-all duration-300"
-                    allowFullScreen={false}
-                    loading="lazy"
-                    referrerPolicy="no-referrer-when-downgrade"
-                  />
+                  <div className="overflow-hidden">
+                    <span className="block text-[11px] font-bold uppercase tracking-wider text-slate-400">
+                      {item.label}
+                    </span>
+                    {item.href ? (
+                      <a href={item.href} className="text-sm font-semibold text-slate-900 hover:opacity-80 transition-opacity truncate block">
+                        {item.value}
+                      </a>
+                    ) : (
+                      <p className="text-sm font-semibold text-slate-900 truncate">
+                        {item.value}
+                      </p>
+                    )}
+                  </div>
                 </div>
-              )}
+              ))}
             </div>
 
-            {/* Right Panel: Form */}
-            <div className="lg:col-span-7 bg-white border border-slate-100 rounded-2xl p-6 sm:p-8 lg:p-10 shadow-[0_4px_20px_-4px_rgba(15,23,42,0.05)]">
-              <h3 className="text-xl sm:text-2xl font-bold text-slate-900 mb-6 sm:mb-8">
-                {data?.form?.title || "Request A Consultation"}
-              </h3>
-              
-              <form onSubmit={handleSubmit} className="space-y-5">
+            {/* Clean Contact Form */}
+            <div className="lg:col-span-7 bg-white rounded-2xl p-6 sm:p-8 border border-slate-200/80 shadow-sm">
+              <form onSubmit={handleSubmit} className="space-y-4">
                 <div>
-                  <label htmlFor="name" className="block text-xs font-bold text-slate-500 uppercase tracking-wider mb-2">Full Name</label>
+                  <label htmlFor="name" className="block text-xs font-bold uppercase tracking-wider text-slate-500 mb-1">
+                    Your Name
+                  </label>
                   <input
                     type="text"
                     id="name"
                     required
                     value={formState.name}
                     onChange={(e) => setFormState({ ...formState, name: e.target.value })}
-                    className="w-full px-4 py-3 text-sm text-slate-900 rounded-xl border border-slate-200 bg-slate-50/50 focus:bg-white focus:outline-none focus:border-blue-500 focus:ring-4 focus:ring-blue-500/10 transition-all duration-200"
-                    placeholder="Enter your name"
+                    className="w-full px-4 py-2.5 text-sm rounded-xl border border-slate-200 bg-slate-50/50 focus:bg-white focus:outline-none focus:ring-2 focus:ring-blue-500/20 transition-all"
+                    placeholder="John Doe"
                   />
-                </div>
-
-                <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
-                  <div>
-                    <label htmlFor="email" className="block text-xs font-bold text-slate-500 uppercase tracking-wider mb-2">Email Address</label>
-                    <input
-                      type="email"
-                      id="email"
-                      required
-                      value={formState.email}
-                      onChange={(e) => setFormState({ ...formState, email: e.target.value })}
-                      className="w-full px-4 py-3 text-sm text-slate-900 rounded-xl border border-slate-200 bg-slate-50/50 focus:bg-white focus:outline-none focus:border-blue-500 focus:ring-4 focus:ring-blue-500/10 transition-all duration-200"
-                      placeholder="name@company.com"
-                    />
-                  </div>
-                  <div>
-                    <label htmlFor="phone" className="block text-xs font-bold text-slate-500 uppercase tracking-wider mb-2">Phone Number</label>
-                    <input
-                      type="tel"
-                      id="phone"
-                      value={formState.phone}
-                      onChange={(e) => setFormState({ ...formState, phone: e.target.value })}
-                      className="w-full px-4 py-3 text-sm text-slate-900 rounded-xl border border-slate-200 bg-slate-50/50 focus:bg-white focus:outline-none focus:border-blue-500 focus:ring-4 focus:ring-blue-500/10 transition-all duration-200"
-                      placeholder="Optional"
-                    />
-                  </div>
                 </div>
 
                 <div>
-                  <label htmlFor="message" className="block text-xs font-bold text-slate-500 uppercase tracking-wider mb-2">Project Requirements</label>
-                  <textarea
-                    id="message"
+                  <label htmlFor="email" className="block text-xs font-bold uppercase tracking-wider text-slate-500 mb-1">
+                    Email Address
+                  </label>
+                  <input
+                    type="email"
+                    id="email"
                     required
-                    rows={5}
-                    value={formState.message}
-                    onChange={(e) => setFormState({ ...formState, message: e.target.value })}
-                    className="w-full px-4 py-3 text-sm text-slate-900 rounded-xl border border-slate-200 bg-slate-50/50 focus:bg-white focus:outline-none focus:border-blue-500 focus:ring-4 focus:ring-blue-500/10 transition-all duration-200 resize-none min-h-[120px]"
-                    placeholder="Describe your project details..."
+                    value={formState.email}
+                    onChange={(e) => setFormState({ ...formState, email: e.target.value })}
+                    className="w-full px-4 py-2.5 text-sm rounded-xl border border-slate-200 bg-slate-50/50 focus:bg-white focus:outline-none focus:ring-2 focus:ring-blue-500/20 transition-all"
+                    placeholder="john@example.com"
                   />
                 </div>
 
-                <div className="pt-2">
-                  <button
-                    type="submit"
-                    disabled={status === "sending"}
-                    style={{ backgroundColor: accentColor }}
-                    className="w-full text-white py-3.5 px-6 rounded-xl font-semibold text-sm shadow-[0_4px_12px_rgba(15,23,42,0.1)] hover:opacity-90 active:scale-[0.99] disabled:opacity-50 transition-all duration-200"
-                  >
-                    {status === "sending" ? "Processing Submission..." : (data?.form?.button || "Send Message")}
-                  </button>
+                <div>
+                  <label htmlFor="message" className="block text-xs font-bold uppercase tracking-wider text-slate-500 mb-1">
+                    Message
+                  </label>
+                  <textarea
+                    id="message"
+                    required
+                    rows={4}
+                    value={formState.message}
+                    onChange={(e) => setFormState({ ...formState, message: e.target.value })}
+                    className="w-full px-4 py-2.5 text-sm rounded-xl border border-slate-200 bg-slate-50/50 focus:bg-white focus:outline-none focus:ring-2 focus:ring-blue-500/20 transition-all resize-none"
+                    placeholder="How can we help you?"
+                  />
                 </div>
 
+                <button
+                  type="submit"
+                  disabled={status === "sending"}
+                  style={{ backgroundColor: primaryColor }}
+                  className="w-full text-white py-3 rounded-xl font-bold text-xs uppercase tracking-wider shadow-sm hover:brightness-110 active:scale-[0.99] transition-all disabled:opacity-50"
+                >
+                  {status === "sending" ? "Sending..." : "Send Message"}
+                </button>
+
                 {status === "success" && (
-                  <div className="flex items-center gap-2 text-emerald-600 bg-emerald-50 border border-emerald-100 px-4 py-3 rounded-xl text-sm font-semibold mt-3">
-                    <span>✓</span>
-                    <p>Consultation request submitted successfully!</p>
-                  </div>
+                  <p className="text-xs text-emerald-600 font-semibold text-center pt-2">
+                    ✓ Message sent successfully!
+                  </p>
                 )}
                 {status === "error" && (
-                  <div className="flex items-center gap-2 text-rose-600 bg-rose-50 border border-rose-100 px-4 py-3 rounded-xl text-sm font-semibold mt-3">
-                    <span>✕</span>
-                    <p>Failed to deliver message. Please retry.</p>
-                  </div>
+                  <p className="text-xs text-rose-600 font-semibold text-center pt-2">
+                    ✕ Something went wrong. Try again.
+                  </p>
                 )}
               </form>
             </div>
@@ -276,7 +205,6 @@ export default function RkContactPage({ header, footer, data, theme }: ContactPa
         </div>
       </main>
 
-      {/* 2. RENDER FOOTER HERE */}
       <Footer data={footer} theme={theme} />
     </div>
   );

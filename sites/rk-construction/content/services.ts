@@ -1,52 +1,64 @@
 const services = {
   badge: "What We Do",
-
   title: "Multi-Disciplined Engineering Solutions",
-
+  
+  // Custom categories added for the tab filter feature
   items: [
     {
       id: "01",
       title: "Process Engineering",
-      description:
-        "Senectus et netus et malesuada. Nunc pulvinar sapien et ligula ullamcorper malesuada proin.",
-      button: "Details",
+      category: "ENGINEERING",
+      type: "process",
+      description: "Streamlined operational workflows, piping systems, and industrial feasibility assessments built for long-term endurance.",
+      button: "Explore Details",
+      href: "/services/process-engineering"
     },
     {
       id: "02",
       title: "Construction Services",
-      description:
-        "Donec adipiscing tristique risus nec feugiat in. Porttitor massa id neque aliquam vestibulum morbi.",
-      button: "Details",
+      category: "CONSTRUCTION",
+      type: "construction",
+      description: "Full-scale turnkey contracting, site excavation, and structural builds executed with certified safety protocols.",
+      button: "Explore Details",
+      href: "/services/construction"
     },
     {
       id: "03",
       title: "Civil Engineering",
-      description:
-        "Morbi tincidunt ornare massa eget egestas purus viverra blandit elementum cursus risus.",
-      button: "Details",
+      category: "ENGINEERING",
+      type: "civil",
+      description: "Foundation retrofitting, land surveying, and municipal infrastructure compliance tailored to national building codes.",
+      button: "Explore Details",
+      href: "/services/civil-engineering"
     },
     {
       id: "04",
       title: "Electrical Engineering",
-      description:
-        "Ac tortor vitae purus faucibus ornare suspendisse sed nisi lacus. Nam aliquam sem et tortor.",
-      button: "Details",
+      category: "ENGINEERING",
+      type: "electrical",
+      description: "High-voltage grid integration, solar power channels, and commercial electrical network design.",
+      button: "Explore Details",
+      href: "/services/electrical-engineering"
     },
     {
       id: "05",
       title: "Chemistry and Metallurgy",
-      description:
-        "Mollis nunc sed id semper. Sodales ut etiam sit amet nisl purus. Sed odio morbi quis commodo odio.",
-      button: "Details",
+      category: "SPECIALTY",
+      type: "metallurgy",
+      description: "Advanced material testing, anti-corrosion structural treatments, and alloy quality assessments.",
+      button: "Explore Details",
+      href: "/services/metallurgy"
     },
     {
       id: "06",
       title: "Specialty Services",
-      description:
-        "Tellus elementum sagittis vitae et. Amet justo donec enim diam vulputate ut consequat.",
-      button: "Details",
-    },
-  ],
+      category: "SPECIALTY",
+      type: "specialty",
+      description: "Bespoke 3D BIM modeling, climate-responsive retrofitting, and emergency structural repairs.",
+      button: "Explore Details",
+      href: "/services/specialty"
+    }
+  ]
 };
 
 export default services;

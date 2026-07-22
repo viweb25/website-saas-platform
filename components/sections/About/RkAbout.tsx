@@ -1,128 +1,146 @@
+// @/components/sections/About/About.tsx
 "use client";
 
-import Image from "next/image";
 import Link from "next/link";
 import { motion } from "framer-motion";
 
 type Props = {
-  data: {
-    badge: string;
-    title: string;
-    description: string;
-    experience: string;
-    experienceText: string;
-    image: string;
-    features: string[];
-    button: {
-      text: string;
-      href: string;
-    };
+  data?: {
+    title?: string;
+    stats?: {
+      value: string | number;
+      label: string;
+      icon?: string;
+    }[];
+    ctaText?: string;
+    ctaLinkText?: string;
+    ctaHref?: string;
   };
 
-  theme: {
-    primary: string;
-    secondary: string;
-    background: string;
-    text: string;
-    button: string;
+  theme?: {
+    primary?: string;
+    secondary?: string;
+    background?: string;
+    text?: string;
+    button?: string;
   };
 };
 
 export default function About({ data, theme }: Props) {
+  const primaryColor = theme?.primary || "#3B82F6";
+  const backgroundColor = theme?.background || "#F9FAFB";
+  const textColor = theme?.text || "#111827";
+
+  // Default Stats matching the Webflow Mason layout in the screenshot
+  const defaultStats = [
+    {
+      value: "325",
+      label: "CLIENTS",
+      icon: (
+        <svg className="w-8 h-8" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
+        </svg>
+      ),
+    },
+    {
+      value: "2056",
+      label: "PROJECTS",
+      icon: (
+        <svg className="w-8 h-8" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
+        </svg>
+      ),
+    },
+    {
+      value: "560",
+      label: "WORKERS",
+      icon: (
+        <svg className="w-8 h-8" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z" />
+        </svg>
+      ),
+    },
+    {
+      value: "156",
+      label: "COFFEE",
+      icon: (
+        <svg className="w-8 h-8" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M18 8h1a4 4 0 010 8h-1M2 8h16v9a4 4 0 01-4 4H6a4 4 0 01-4-4V8zM6 1v3M10 1v3M14 1v3" />
+        </svg>
+      ),
+    },
+  ];
+
+  const stats = data?.stats?.length ? data.stats : defaultStats;
+
   return (
-    <section className="bg-gray-50 py-16 sm:py-24 md:py-28 overflow-hidden">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-20 items-center">
+    <section className="relative w-full overflow-hidden" style={{ backgroundColor }}>
+      {/* Top Banner (Blue Colored Background) */}
+      <div
+        className="w-full pt-16 pb-36 px-6 text-center text-white relative"
+        style={{ backgroundColor: primaryColor }}
+      >
+        <h2 className="text-3xl sm:text-4xl md:text-5xl font-extrabold tracking-tight uppercase">
+          {data?.title || "WHY CHOOSE US?"}
+        </h2>
 
-        {/* Left - Image & Experience Badge */}
-        <motion.div
-          initial={{ x: -40, opacity: 0 }}
-          whileInView={{ x: 0, opacity: 1 }}
-          transition={{ duration: 0.8 }}
-          viewport={{ once: true }}
-          className="relative pb-8 sm:pb-10 lg:pb-0"
-        >
-          {/* Mobile height h-[350px] to sm/lg h-[500px]/h-[600px] to prevent extreme scrolling */}
-          <div className="relative h-[350px] sm:h-[480px] lg:h-[600px] w-full rounded-2xl overflow-hidden shadow-2xl">
-            <Image
-              src={data.image}
-              alt={data.title}
-              fill
-              className="object-cover hover:scale-105 transition-transform duration-700"
-            />
-          </div>
+        {/* White Accent Line with Dots */}
+        <div className="flex items-center justify-center gap-2 mt-4">
+          <span className="w-2 h-2 rounded-full bg-white" />
+          <div className="w-28 h-[2px] bg-white/40" />
+          <span className="w-2 h-2 rounded-full bg-white" />
+        </div>
+      </div>
 
-          {/* Floating Experience Box - Adjusted for mobile position & padding */}
-          <motion.div
-            whileHover={{ scale: 1.05 }}
-            className="absolute bottom-0 right-2 sm:-bottom-8 sm:-right-6 bg-white shadow-xl sm:shadow-2xl rounded-xl p-5 sm:p-8 border border-gray-100 max-w-[200px] sm:max-w-xs"
-          >
-            <h2
-              className="text-3xl sm:text-5xl font-extrabold"
-              style={{ color: theme.primary }}
-            >
-              {data.experience}
-            </h2>
-
-            <p className="text-gray-600 text-xs sm:text-base font-medium mt-1">
-              {data.experienceText}
-            </p>
-          </motion.div>
-        </motion.div>
-
-        {/* Right - Content & Details */}
-        <motion.div
-          initial={{ x: 40, opacity: 0 }}
-          whileInView={{ x: 0, opacity: 1 }}
-          transition={{ duration: 0.8 }}
-          viewport={{ once: true }}
-          className="mt-6 lg:mt-0"
-        >
-          <p
-            className="uppercase tracking-[3px] sm:tracking-[5px] text-xs sm:text-sm font-bold mb-3 sm:mb-4"
-            style={{ color: theme.primary }}
-          >
-            {data.badge}
-          </p>
-
-          <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-gray-900 mb-4 sm:mb-8 leading-tight">
-            {data.title}
-          </h2>
-
-          <p className="text-gray-600 leading-relaxed text-base sm:text-lg mb-8 sm:mb-10">
-            {data.description}
-          </p>
-
-          {/* Features Grid: Single column on tiny screens, 2 columns from sm upward */}
-          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 sm:gap-5 mb-8 sm:mb-10">
-            {data.features.map((feature) => (
+      {/* Floating Overlapping Card */}
+      <div className="max-w-6xl mx-auto px-6 -mt-24 relative z-10 pb-20">
+        <div className="bg-white rounded-xl shadow-xl border border-gray-100 overflow-hidden">
+          
+          {/* Stats Grid Section */}
+          <div className="grid grid-cols-2 md:grid-cols-4 divide-x divide-y md:divide-y-0 divide-gray-100 p-8 sm:p-12 text-center">
+            {stats.map((item: any, idx: number) => (
               <motion.div
-                key={feature}
-                whileHover={{ x: 6 }}
-                className="flex items-center gap-3"
+                key={idx}
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.5, delay: idx * 0.1 }}
+                viewport={{ once: true }}
+                className="p-4 flex flex-col items-center justify-center"
               >
-                <div
-                  className="w-2.5 h-2.5 sm:w-3 sm:h-3 rounded-full shrink-0"
-                  style={{ background: theme.primary }}
-                />
-
-                <span className="font-medium text-gray-800 text-sm sm:text-base">
-                  {feature}
-                </span>
+                <div style={{ color: primaryColor }} className="mb-3">
+                  {item.icon || (
+                    <svg className="w-8 h-8" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M5 13l4 4L19 7" />
+                    </svg>
+                  )}
+                </div>
+                <div className="text-3xl sm:text-4xl md:text-5xl font-black text-gray-900 tracking-tight">
+                  {item.value}
+                </div>
+                <div className="text-xs sm:text-sm font-semibold tracking-wider text-blue-500 uppercase mt-2">
+                  {item.label}
+                </div>
               </motion.div>
             ))}
           </div>
 
-          <Link
-            href={data.button.href}
-            className="inline-block w-full sm:w-auto text-center px-8 py-3.5 sm:py-4 rounded-lg text-white font-semibold shadow-md transition-opacity hover:opacity-95"
-            style={{
-              background: theme.button,
-            }}
-          >
-            {data.button.text}
-          </Link>
-        </motion.div>
+          <hr className="border-gray-100" />
 
+          {/* Sub Banner Link */}
+          <div className="py-8 px-6 text-center bg-gray-50/50">
+            <div className="inline-block px-6 py-3 rounded-md bg-blue-50/60 border border-blue-100 text-sm text-gray-600">
+              {data?.ctaText || "Find out What Our Clients Say About us?"}{" "}
+              <Link
+                href={data?.ctaHref || "/about"}
+                className="font-bold hover:underline transition-all"
+                style={{ color: primaryColor }}
+              >
+                {data?.ctaLinkText || "Do want to Learn More"}
+              </Link>
+            </div>
+          </div>
+
+        </div>
       </div>
     </section>
   );

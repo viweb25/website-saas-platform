@@ -1,83 +1,57 @@
-// sites/rk-construction/content/pages/projects.ts
-const rkProjectsPage = {
-  hero: {
-    badge: "Our Portfolio",
-    title: "Masterpieces Built to Last Generations",
-    subtitle:
-      "Explore our landmark civil engineering, architectural designs, and commercial structures across the region.",
-    backgroundImage: "/sites/rk-construction/projects/banner.webp",
-  },
+import rkp1 from "@/sites/rk-construction/assets/rkp1.png";
+import rkp2 from "@/sites/rk-construction/assets/rkp2.png";
+import rkp3 from "@/sites/rk-construction/assets/rkp3.png";
+import rkp4 from "@/sites/rk-construction/assets/rkp4.png";
+import rkp5 from "@/sites/rk-construction/assets/rkp5.png";
 
-  intro: {
-    title: "Delivering Excellence Across Diverse Sectors",
-    description:
-      "From high-end residential spaces to massive industrial developments, our portfolio shows our commitment to precision, structural integrity, and modern engineering aesthetics.",
-  },
 
-  categories: [
-    { slug: "all", name: "All Projects" },
-    { slug: "residential", name: "Residential" },
-    { slug: "commercial", name: "Commercial" },
-    { slug: "industrial", name: "Industrial" },
-  ],
-
-  projects: [
+const projects = {
+  badge: "What We Do",
+  title: "Our Projects",
+  variant: "bento",
+  items: [
     {
       id: 1,
-      title: "Skyline Premium Apartments",
-      category: "residential",
-      location: "Adyar, Chennai",
-      stats: "78,000 m² Completed",
-      image: "/img/building.png",
-      description: "A luxury multi-story residential complex featuring sustainable structural concrete design and modern amenities.",
+      title: "Jazzy Elite Construction Shopping Center",
+      location: "100 Sunrise Ct, Hamel, Minnesota",
+      image: rkp1,
+      size: "large",
+      button: "View Details",
     },
     {
       id: 2,
-      title: "TechPark Plaza Corporate Hub",
-      category: "commercial",
-      location: "OMR, Chennai",
-      stats: "120,000 m² Structural Framing",
-      image: "/img/building_mini.png",
-      description: "State-of-the-art commercial tech hub prioritizing steel framing efficiency and complex glass facades.",
+      title: "Fresh Concept Construction Renovation",
+      location: "Rocky Highway, Port Juana",
+      image: rkp2,
+      size: "small",
+      button: "View Details",
     },
     {
       id: 3,
-      title: "Apex Logistics & Warehousing Complex",
-      category: "industrial",
-      location: "Sriperumbudur",
-      stats: "210,000 m² High-Load Flooring",
-      image: "/img/plan.png",
-      description: "Heavy industrial facility built with high-performance foundations tailored for automated warehousing load distributions.",
+      title: "Installation of Supply System",
+      location: "Wuckert Junctions, Hermannberg",
+      image: rkp3,
+      size: "medium",
+      button: "View Details",
     },
     {
       id: 4,
-      title: "Green Meadows Eco-Villas",
-      category: "residential",
-      location: "ECR, Chennai",
-      stats: "12 Luxury Units Delivered",
-      image: "/img/building.png",
-      description: "Premium sustainable living spaces incorporating green construction engineering and localized water management.",
+      title: "Reconstruction of Old Factory Building",
+      location: "Stoltenberg Underpass, Blockbury",
+      image: rkp4,
+      size: "large",
+      button: "View Details",
     },
     {
       id: 5,
-      title: "Grand Retail Galleria",
-      category: "commercial",
-      location: "Anna Nagar, Chennai",
-      stats: "4-Floor Retail Span",
-      image: "/img/building_mini.png",
-      description: "A grand scale commercial retail mall highlighting open architectural floor concepts and robust MEP system zones.",
+      title: "Modern Office Complex",
+      location: "Chicago, Illinois",
+      image: rkp5,
+      size: "small",
+      button: "View Details",
     },
+   
   ],
-
-  cta: {
-    title: "Have a Vision for Your Next Construction Venture?",
-    description:
-      "Let our team of structural engineering experts and certified contractors map your requirements to architectural milestones.",
-    button: {
-      text: "Discuss Your Project",
-      href: "/contact",
-    },
-  },
 };
 
-export default rkProjectsPage;
+export default projects;

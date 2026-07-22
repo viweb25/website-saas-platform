@@ -6,7 +6,7 @@ import Services from "@/components/sections/Services/Services";
 import Projects from "@/components/sections/Projects/Projects";
 import About from "@/components/sections/About/About";
 import Gallery from "@/components/sections/Gallery/Gallery";
-import AboutPage from "@/components/pages/About/AboutPage";
+
 type Props = {
   searchParams: Promise<{ site?: string }>;
 };
@@ -40,13 +40,7 @@ export default async function Home({ searchParams }: Props) {
   data={site.about}
   theme={site.theme}
 />
-<AboutPage
 
-data={site.pages.about}
-
-theme={site.theme}
-
-/>
 <Gallery data={site.gallery}
  theme={site.theme}
   />

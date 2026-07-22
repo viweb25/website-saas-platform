@@ -1,4 +1,4 @@
-import heroImage from "../assets/plan.jpg";
+import heroImage from "../assets/rk5.png";
 import blueprintImage from "../assets/plan.jpg";
 import miniImage from "../assets/plan.jpg";
 
